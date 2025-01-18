@@ -135,6 +135,8 @@ Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 -   Email: email@domain.com
 -   Telegram: @username -->
 
+---
+
 # English
 
 ---
