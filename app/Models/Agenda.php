@@ -11,13 +11,16 @@ class Agenda extends Model
 
     protected $fillable = [
         'name',
-        'total_participants',
+        'participants',
+        'inviter_name',
+        'inviter_position',
         'location',
         'date',
         'status',
     ];
 
     protected $casts = [
+        'participants' => 'array',
         'status'    => MeetingStatus::class,
     ];
 
