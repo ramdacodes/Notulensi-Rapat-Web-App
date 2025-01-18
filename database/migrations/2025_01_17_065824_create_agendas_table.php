@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('agendas', function (Blueprint $table) {
             $table->id('agenda_id');
             $table->string('name');
-            $table->integer('total_participants');
             $table->string('location');
             $table->date('date');
+            $table->json('participants');
+            $table->string('inviter_name');
+            $table->string('inviter_position');
             $table->enum('status', ['not_started', 'ongoing', 'finished'])->default('not_started');
             $table->timestamps();
         });

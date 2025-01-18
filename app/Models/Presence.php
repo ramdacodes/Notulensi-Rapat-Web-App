@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Qna extends Model
+class Presence extends Model
 {
     //
 }

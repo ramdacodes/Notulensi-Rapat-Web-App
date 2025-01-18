@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('qnas', function (Blueprint $table) {
-            $table->id('qna_id');
-            $table->foreignId('rundown_id')
-                ->constrained('rundowns', 'rundown_id')
+        Schema::create('attachments', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('agenda_id')
+                ->constrained('agendas', 'agenda_id')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->text('question');
-            $table->text('answer');
+            $table->string('name');
+            $table->text('description');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('qnas');
+        Schema::dropIfExists('attachments');
     }
 };
