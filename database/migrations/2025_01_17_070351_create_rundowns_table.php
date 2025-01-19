@@ -17,13 +17,10 @@ return new class extends Migration
                 ->constrained('agendas', 'agenda_id')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->string('discussion');
             $table->time('start_time');
             $table->time('end_time');
-            $table->string('discussion');
-            $table->text('pic');
-            $table->text('decision');
-            $table->enum('status', ['not_started', 'ongoing', 'finished'])->default('not_started');
-            $table->text('minutes_of_meeting')->nullable();
+            $table->json('pics');
             $table->timestamps();
         });
     }

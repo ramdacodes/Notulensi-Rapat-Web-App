@@ -10,6 +10,8 @@ class EditAdmin extends EditRecord
 {
     protected static string $resource = AdminResource::class;
 
+    protected static ?string $title = 'Edit Admin';
+
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');

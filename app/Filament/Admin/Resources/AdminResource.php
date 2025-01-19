@@ -7,6 +7,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -28,11 +29,6 @@ class AdminResource extends Resource
     protected static ?string $navigationGroup = 'Master Data';
 
     protected static ?int $navigationSort = 3;
-
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::where('role', 'admin')->count();
-    }
 
     public static function form(Form $form): Form
     {
@@ -86,13 +82,37 @@ class AdminResource extends Resource
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make(),
-                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\DeleteAction::make()
+                    ->successNotification(
+                        Notification::make()
+                            ->success()
+                            ->title('Success')
+                            ->body('Admin deleted successfully'),
+                    )
+                    ->failureNotification(
+                        Notification::make()
+                            ->danger()
+                            ->title('Failed')
+                            ->body('Failed to delete admin'),
+                    ),
                 ])
                 ->tooltip('Actions'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                    ->successNotification(
+                        Notification::make()
+                            ->success()
+                            ->title('Success')
+                            ->body('Admin deleted successfully'),
+                    )
+                    ->failureNotification(
+                        Notification::make()
+                            ->danger()
+                            ->title('Failed')
+                            ->body('Failed to delete admin'),
+                    ),
                 ]),
             ])
             ->emptyStateHeading('Empty data')

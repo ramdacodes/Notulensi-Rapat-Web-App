@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'Notulen',
-            'email' => 'notulen@anr.com',
-            'password' => Hash::make('notulen123'),
-            'role' => 'notulen',
+            'name' => 'Notulis',
+            'email' => 'notulis@anr.com',
+            'password' => Hash::make('notulis123'),
+            'role' => 'notulis',
         ]);
     }
 }

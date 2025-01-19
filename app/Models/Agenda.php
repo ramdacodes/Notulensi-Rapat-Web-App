@@ -26,6 +26,11 @@ class Agenda extends Model
 
     public function notulensi()
     {
-        return $this->hasMany(Notulensi::class, 'agenda_id');
+        return $this->hasOne(Notulensi::class, 'agenda_id');
     }
+
+    public function rundowns()
+{
+    return $this->hasMany(Rundown::class, 'agenda_id');
+}
 }

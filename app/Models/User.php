@@ -53,8 +53,8 @@ class User extends Authenticatable implements FilamentUser
         switch ($panel->getId()) {
             case 'admin':
                 return $this->role === 'admin';
-            case 'notulen':
-                return $this->role === 'notulen';
+            case 'notulis':
+                return $this->role === 'notulis';
             default:
                 return false;
         }

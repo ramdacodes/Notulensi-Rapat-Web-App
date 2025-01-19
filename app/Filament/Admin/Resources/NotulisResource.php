@@ -7,6 +7,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -25,11 +26,6 @@ class NotulisResource extends Resource
     protected static ?string $breadcrumb = "Notulis";
 
     protected static ?int $navigationSort = 4;
-
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::where('role', 'notulen')->count();
-    }
 
     public static function form(Form $form): Form
     {
@@ -54,7 +50,7 @@ class NotulisResource extends Resource
                     ->required(fn (string $context): bool => $context === 'create')
                     ->dehydrated(fn ($state) => !empty($state)),
                 TextInput::make('role')
-                    ->default('notulen')
+                    ->default('notulis')
                     ->hidden(),
             ]);
     }
@@ -82,15 +78,41 @@ class NotulisResource extends Resource
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make(),
-                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\DeleteAction::make()
+                    ->successNotification(
+                        Notification::make()
+                            ->success()
+                            ->title('Success')
+                            ->body('Notulis deleted successfully'),
+                    )
+                    ->failureNotification(
+                        Notification::make()
+                            ->danger()
+                            ->title('Failed')
+                            ->body('Failed to delete notulis'),
+                    ),
                 ])
                 ->tooltip('Actions'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                    ->successNotification(
+                        Notification::make()
+                            ->success()
+                            ->title('Success')
+                            ->body('Notulis deleted successfully'),
+                    )
+                    ->failureNotification(
+                        Notification::make()
+                            ->danger()
+                            ->title('Failed')
+                            ->body('Failed to delete notulis'),
+                    ),
                 ]),
-            ]);
+            ])
+            ->emptyStateHeading('Empty data')
+            ->emptyStateDescription('No data found');
     }
 
     public static function getRelations(): array

@@ -10,6 +10,8 @@ class EditNotulis extends EditRecord
 {
     protected static string $resource = NotulisResource::class;
 
+    protected static ?string $title = 'Edit Notulis';
+
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
