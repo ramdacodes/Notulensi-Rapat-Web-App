@@ -82,7 +82,6 @@ class AgendaResource extends Resource
                         ->schema([
                             Repeater::make('rundowns')
                                 ->required()
-                                ->relationship('rundowns')
                                 ->schema([
                                     TextInput::make('discussion')
                                         ->placeholder('Please enter discussion')
@@ -103,7 +102,8 @@ class AgendaResource extends Resource
                                 ])
                                 ->reorderable()
                                 ->columnSpanFull()
-                                ->default([]),
+                                ->default([])
+                                ->addActionLabel('Add Rundown'),
                         ])
                         ->columnSpan(1),
                 ]),

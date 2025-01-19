@@ -19,6 +19,7 @@ return new class extends Migration
             $table->json('participants');
             $table->string('inviter_name');
             $table->string('inviter_position');
+            $table->json('rundowns');
             $table->enum('status', ['not_started', 'ongoing', 'finished'])->default('not_started');
             $table->timestamps();
         });

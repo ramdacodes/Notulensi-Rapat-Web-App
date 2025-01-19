@@ -11,16 +11,18 @@ class Agenda extends Model
 
     protected $fillable = [
         'name',
+        'location',
+        'date',
         'participants',
         'inviter_name',
         'inviter_position',
-        'location',
-        'date',
+        'rundowns',
         'status',
     ];
 
     protected $casts = [
         'participants' => 'array',
+        'rundowns' => 'array',
         'status'    => MeetingStatus::class,
     ];
 
@@ -28,9 +30,4 @@ class Agenda extends Model
     {
         return $this->hasOne(Notulensi::class, 'agenda_id');
     }
-
-    public function rundowns()
-{
-    return $this->hasMany(Rundown::class, 'agenda_id');
-}
 }
