@@ -17,9 +17,9 @@ return new class extends Migration
                 ->constrained('agendas', 'agenda_id')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->string('name');
-            $table->string('nim')->nullable();
             $table->string('nidn')->nullable();
+            $table->string('nim')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
