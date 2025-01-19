@@ -11,6 +11,11 @@ class Notulensi extends Model
     protected $fillable = [
         'agenda_id',
         'conclusion',
+        'attachments',
+    ];
+
+    protected $casts = [
+        'attachments' => 'array',
     ];
 
     public function agenda()

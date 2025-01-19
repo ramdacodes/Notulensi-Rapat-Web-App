@@ -10,10 +10,13 @@ class ListNotulensis extends ListRecords
 {
     protected static string $resource = NotulensiResource::class;
 
+    protected static ?string $title = "Notulensi";
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Create Notulensi'),
         ];
     }
 }

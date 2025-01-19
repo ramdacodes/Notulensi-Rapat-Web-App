@@ -18,6 +18,7 @@ return new class extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->text('conclusion');
+            $table->json('attachments');
             $table->timestamps();
         });
     }

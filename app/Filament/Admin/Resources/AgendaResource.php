@@ -78,7 +78,7 @@ class AgendaResource extends Resource
                                 ->required(),
                         ])
                         ->columnSpan(1),
-                    Section::make('Rundown Details')
+                    Section::make('Rundowns')
                         ->schema([
                             Repeater::make('rundowns')
                                 ->required()
