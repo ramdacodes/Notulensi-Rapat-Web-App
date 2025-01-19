@@ -1,24 +1,21 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Notulis\Resources;
 
-use App\Filament\Resources\NotulisResource\Pages;
-use App\Filament\Resources\NotulisResource\RelationManagers;
-use App\Models\Notulis;
-use App\Models\User;
+use App\Filament\Notulis\Resources\NotulensiResource\Pages;
+use App\Filament\Notulis\Resources\NotulensiResource\RelationManagers;
+use App\Models\Notulensi;
 use Filament\Forms;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class NotulisResource extends Resource
+class NotulensiResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static ?string $model = Notulensi::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -26,24 +23,16 @@ class NotulisResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name'),
-                TextInput::make('email'),
-                TextInput::make('password')
+                //
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-        ->query(
-            User::query()->where("role","notulen")
-        )
             ->columns([
-                TextColumn::make('name')->sortable()->searchable(),
-                TextColumn::make('email')->sortable()->searchable(),
-                TextColumn::make('created_at')->sortable()->searchable()
+                //
             ])
-
             ->filters([
                 //
             ])
@@ -67,9 +56,9 @@ class NotulisResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListNotulis::route('/'),
-            'create' => Pages\CreateNotulis::route('/create'),
-            'edit' => Pages\EditNotulis::route('/{record}/edit'),
+            'index' => Pages\ListNotulensis::route('/'),
+            'create' => Pages\CreateNotulensi::route('/create'),
+            'edit' => Pages\EditNotulensi::route('/{record}/edit'),
         ];
     }
 }

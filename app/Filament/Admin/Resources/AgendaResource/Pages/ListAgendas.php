@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\AgendaResource\Pages;
+namespace App\Filament\Admin\Resources\AgendaResource\Pages;
 
-use App\Filament\Resources\AgendaResource;
+use App\Filament\Admin\Resources\AgendaResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -10,10 +10,14 @@ class ListAgendas extends ListRecords
 {
     protected static string $resource = AgendaResource::class;
 
+    protected static ?string $title = 'Agenda';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Create Agenda')
+                ->modal(),
         ];
     }
 }
