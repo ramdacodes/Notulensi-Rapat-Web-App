@@ -1,14 +1,12 @@
 <?php
 
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->to('/information');
 });
 
-Route::prefix('agenda')->group(function () {
-    Route::get('generate-pdf/{id}', [AgendaController::class, 'generatePDF'])->name('agenda.generate.pdf');
-    Route::get('presence/{id}', [AgendaController::class, 'presence'])->name('agenda.presence');
-});
+Route::get('generate-pdf/{id}', [PdfController::class, 'generatePDF'])->name('generate.pdf');
 

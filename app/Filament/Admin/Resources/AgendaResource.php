@@ -167,7 +167,7 @@ class AgendaResource extends Resource
                     Tables\Actions\Action::make('generate_agenda_pdf')
                         ->label('Generate PDF')
                         ->icon('heroicon-o-arrow-down-tray')
-                        ->url(fn ($record) => route('agenda.generate.pdf', ['id' => encrypt($record->agenda_id)]), true),
+                        ->url(fn ($record) => route('generate.pdf', ['id' => encrypt($record->agenda_id)]), true),
                     Tables\Actions\DeleteAction::make()
                         ->successNotification(
                             Notification::make()
