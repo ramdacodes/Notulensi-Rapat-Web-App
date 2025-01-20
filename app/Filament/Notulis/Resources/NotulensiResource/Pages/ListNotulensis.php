@@ -16,7 +16,7 @@ class ListNotulensis extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Create Notulensi'),
+                ->label('New notulensi'),
         ];
     }
 }

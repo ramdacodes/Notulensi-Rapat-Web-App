@@ -16,7 +16,7 @@ class ListAgendas extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Create Agenda'),
+                ->label('New agenda'),
         ];
     }
 }

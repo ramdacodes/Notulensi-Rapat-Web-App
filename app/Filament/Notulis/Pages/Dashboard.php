@@ -2,6 +2,8 @@
 
 namespace App\Filament\Notulis\Pages;
 
+use App\Filament\Notulis\Widgets\AppInformation;
+use App\Filament\Notulis\Widgets\DashboardStatsOverview;
 use Filament\Pages\Page;
 
 class Dashboard extends Page
@@ -15,4 +17,12 @@ class Dashboard extends Page
     protected static ?string $navigationLabel = 'Dashboard';
 
     protected static ?string $navigationGroup = 'Home';
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            AppInformation::class,
+            DashboardStatsOverview::class,
+        ];
+    }
 }

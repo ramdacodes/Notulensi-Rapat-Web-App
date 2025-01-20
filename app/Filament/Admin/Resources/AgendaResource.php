@@ -28,7 +28,7 @@ class AgendaResource extends Resource
 {
     protected static ?string $model = Agenda::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-clipboard';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
     protected static ?string $navigationLabel = 'Agenda';
 
@@ -59,9 +59,9 @@ class AgendaResource extends Resource
                                 ->default(now())
                                 ->required(),
                             TagsInput::make('participants')
-                                ->placeholder('Please enter participants')
+                                ->placeholder(fn (string $context): string|null => $context === 'view' ? null : 'Please enter participants')
                                 ->reorderable()
-                                ->helperText('Please use enter to separate participants')
+                                ->helperText(fn (string $context): string|null => $context === 'view' ? null : 'Please use enter to separate participants')
                                 ->required(),
                             TextInput::make('inviter_name')
                                 ->placeholder('Please enter inviter name')
@@ -95,8 +95,8 @@ class AgendaResource extends Resource
                                         ->native(false)
                                         ->required(),
                                     TagsInput::make('pics')
-                                        ->placeholder('Please enter pics')
-                                        ->helperText('Please use enter to separate pics')
+                                        ->placeholder(fn (string $context): string|null => $context === 'view' ? null : 'Please enter pics')
+                                        ->helperText(fn (string $context): string|null => $context === 'view' ? null : 'Please use enter to separate pics')
                                         ->reorderable()
                                         ->required(),
                                 ])
@@ -152,30 +152,22 @@ class AgendaResource extends Resource
                                 ->visible(false),
                         ])
                         ->disabled(fn ($record) => empty($record->notulensi?->conclusion)),
+                    Tables\Actions\Action::make('view_documentation')
+                        ->label('View Documentation')
+                        ->icon('heroicon-s-photo')
+                        ->modalHeading(fn ($record) => 'Documentation of ' . $record->name)
+                        ->modalDescription(fn ($record) => 'Location: ' . $record->location . ', Date: ' . $record->date)
+                        ->modalFooterActions([
+                            Action::make('close.modal')
+                                ->label('Close')
+                                ->visible(false),
+                        ])
+                        ->disabled(fn ($record) => empty($record->notulensi?->conclusion)),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\Action::make('generate_agenda_pdf')
                         ->label('Generate PDF')
-                        ->icon('heroicon-o-arrow-down-tray'),
-                        // ->url(fn ($record) => route('generate.pdf', ['agenda' => $record->id]), true),
-                    Tables\Actions\Action::make('copy_link_presence_agenda')
-                        ->label('Copy Link Presence')
-                        ->icon('heroicon-o-link')
-                        ->action(function ($record, $livewire) {
-                                // $livewire->dispatchBrowserEvent('copy-to-clipboard', ['text' => 'id']); // Kirim event ke browser
-                                // $livewire->notify('success', 'Link copied to clipboard!');
-                        })
-                        ->successNotification(
-                            Notification::make()
-                                ->success()
-                                ->title('Success')
-                                ->body('Agenda deleted successfully'),
-                        )
-                        ->failureNotification(
-                            Notification::make()
-                                ->danger()
-                                ->title('Failed')
-                                ->body('Failed to delete agenda'),
-                        ),
+                        ->icon('heroicon-o-arrow-down-tray')
+                        ->url(fn ($record) => route('agenda.generate.pdf', ['id' => encrypt($record->agenda_id)]), true),
                     Tables\Actions\DeleteAction::make()
                         ->successNotification(
                             Notification::make()

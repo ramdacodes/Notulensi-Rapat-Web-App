@@ -8,9 +8,7 @@ use Filament\Widgets\ChartWidget;
 
 class MonthlyAgendaChart extends ChartWidget
 {
-    protected static ?string $heading = 'Monthly agendas';
-
-    protected int | string | array $columnSpan = 'full';
+    protected static ?string $heading = 'Monthly agenda';
 
     protected function getData(): array
     {

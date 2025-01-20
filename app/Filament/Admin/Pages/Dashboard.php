@@ -2,10 +2,12 @@
 
 namespace App\Filament\Admin\Pages;
 
+use App\Filament\Admin\Widgets\AgendaStatusChart;
+use App\Filament\Admin\Widgets\AppInformation;
 use App\Filament\Admin\Widgets\DashboardStatsOverview;
-use App\Filament\Admin\Widgets\HeaderInformation;
 use App\Filament\Admin\Widgets\LatestAgendaTable;
 use App\Filament\Admin\Widgets\MonthlyAgendaChart;
+use App\Filament\Admin\Widgets\MostParticipantsAgendaTable;
 use Filament\Pages\Page;
 
 class Dashboard extends Page
@@ -23,7 +25,7 @@ class Dashboard extends Page
     protected function getHeaderWidgets(): array
     {
         return [
-            HeaderInformation::class,
+            AppInformation::class,
             DashboardStatsOverview::class,
         ];
     }
@@ -31,9 +33,10 @@ class Dashboard extends Page
     protected function getFooterWidgets(): array
     {
         return [
-            // MostParticipantsAgendaTable::class,
+            MostParticipantsAgendaTable::class,
             LatestAgendaTable::class,
             MonthlyAgendaChart::class,
+            AgendaStatusChart::class,
         ];
     }
 }

@@ -7,21 +7,22 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 
-class LatestAgendaTable extends BaseWidget
+class MostParticipantsAgendaTable extends BaseWidget
 {
     public function table(Table $table): Table
     {
         return $table
             ->query(
                 Agenda::query()
+                    ->selectRaw('agendas.*, JSON_LENGTH(participants) as participants_count')
+                    ->orderByDesc('participants_count')
                     ->limit(5),
             )
-            ->heading('Latest agenda')
+            ->heading('Agenda with most participants')
             ->columns([
                 TextColumn::make('name'),
-                TextColumn::make('location'),
-                TextColumn::make('date')
-                    ->date(),
+                TextColumn::make('participants_count')
+                    ->label('Total Participants'),
                 TextColumn::make('status')
                     ->badge(),
             ])

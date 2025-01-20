@@ -13,6 +13,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -83,12 +84,16 @@ class NotulensiResource extends Resource
                                 Repeater::make('attachments')
                                     ->required()
                                     ->schema([
+                                        TextInput::make('title')
+                                            ->placeholder('Please enter title')
+                                            ->required(),
                                         FileUpload::make('file')
                                             ->image()
                                             ->disk('public')
                                             ->directory('images/agendas/attachments')
                                             ->required(),
                                         Textarea::make('description')
+                                            ->placeholder('Please enter description')
                                             ->required()
                                     ])
                                     ->reorderable()

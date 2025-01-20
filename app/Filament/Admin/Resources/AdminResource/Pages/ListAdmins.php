@@ -16,7 +16,7 @@ class ListAdmins extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Create Admin'),
+                ->label('New admin'),
         ];
     }
 }

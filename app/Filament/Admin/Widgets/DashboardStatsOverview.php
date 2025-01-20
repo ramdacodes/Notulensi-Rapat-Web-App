@@ -16,13 +16,18 @@ class DashboardStatsOverview extends BaseWidget
     protected function getStats(): array
     {
         $totalAgenda = Agenda::count();
-        $totalAdmin = User::where('role', 'admin')->count();
-        $totalNotulen = User::where('role', 'notulen')->count();
+        $userQuery = User::query();
+
+        $totalAdmin = $userQuery->clone()->where('role', 'admin')->count();
+        $totalNotulen = $userQuery->clone()->where('role', 'notulis')->count();
 
         return [
-            Stat::make('Total Agenda', $totalAgenda),
-            Stat::make('Total Admin', $totalAdmin),
-            Stat::make('Total Notulis', $totalNotulen),
+            Stat::make('Agenda', $totalAgenda)
+                ->description('Total agenda'),
+            Stat::make('Admin', $totalAdmin)
+                ->description('Total admin'),
+            Stat::make('Total Notulis', $totalNotulen)
+                ->description('Total notulis'),
         ];
     }
 }

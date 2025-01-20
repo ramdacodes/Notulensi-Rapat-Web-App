@@ -26,9 +26,9 @@ class AdminResource extends Resource
 
     protected static ?string $breadcrumb = 'Admin';
 
-    protected static ?string $navigationGroup = 'Master Data';
+    protected static ?string $navigationGroup = 'Others';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {

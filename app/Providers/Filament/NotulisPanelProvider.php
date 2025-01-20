@@ -28,7 +28,7 @@ class NotulisPanelProvider extends PanelProvider
             ->login()
             ->registration()
             ->profile()
-            ->brandName('Aplikasi Notulensi Rapat')
+            ->brandName('Meeting Minutes Application')
             ->colors([
                 'primary' => Color::Gray,
             ])
@@ -38,10 +38,7 @@ class NotulisPanelProvider extends PanelProvider
                 Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Notulis/Widgets'), for: 'App\\Filament\\Notulis\\Widgets')
-            ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
-            ])
+            ->widgets([])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
