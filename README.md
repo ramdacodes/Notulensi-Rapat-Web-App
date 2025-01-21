@@ -37,8 +37,8 @@ Pastikan sistem Anda memiliki:
 1. **Clone Repository**
 
     ```bash
-    git clone git@github.com:ramdacodes/Aplikasi-Notulensi-Rapat.git
-    cd Aplikasi-Notulensi-Rapat
+    git clone git@github.com:ramdacodes/Notulensi-Rapat-Web-App.git
+    cd Notulensi-Rapat-Web-App
     ```
 
 2. **Install Dependensi**
@@ -176,8 +176,8 @@ Ensure your system has:
 1. **Clone the Repository**
 
     ```bash
-    git clone git@github.com:ramdacodes/Aplikasi-Notulensi-Rapat.git
-    cd Aplikasi-Notulensi-Rapat
+    git clone git@github.com:ramdacodes/Notulensi-Rapat-Web-App.git
+    cd Notulensi-Rapat-Web-App
     ```
 
 2. **Install Dependencies**
