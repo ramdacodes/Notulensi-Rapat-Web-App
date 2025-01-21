@@ -5,17 +5,17 @@ namespace App\Filament\Public\Widgets;
 use App\MeetingStatus;
 use App\Models\Agenda;
 use Carbon\Carbon;
+use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Filament\Tables;
-use Filament\Tables\Actions\Action;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Support\HtmlString;
 
 class AgendaTable extends BaseWidget
 {
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     public function table(Table $table): Table
     {
@@ -53,8 +53,8 @@ class AgendaTable extends BaseWidget
                     Tables\Actions\Action::make('view_agenda_conclusion')
                         ->label('View Conclusion')
                         ->icon('heroicon-s-eye')
-                        ->modalHeading(fn ($record) => 'Conclusion of ' . $record->name)
-                        ->modalDescription(fn ($record) => 'Location: ' . $record->location . ', Date: ' . $record->date)
+                        ->modalHeading(fn ($record) => 'Conclusion of '.$record->name)
+                        ->modalDescription(fn ($record) => 'Location: '.$record->location.', Date: '.$record->date)
                         ->modalContent(fn ($record) => new HtmlString($record->notulensi?->conclusion ?? 'No conclusion available'))
                         ->modalFooterActions([
                             Action::make('close.modal')
@@ -65,8 +65,9 @@ class AgendaTable extends BaseWidget
                     Tables\Actions\Action::make('view_documentation')
                         ->label('View Documentation')
                         ->icon('heroicon-s-photo')
-                        ->modalHeading(fn ($record) => 'Documentation of ' . $record->name)
-                        ->modalDescription(fn ($record) => 'Location: ' . $record->location . ', Date: ' . $record->date)
+                        ->modalHeading(fn ($record) => 'Documentation of '.$record->name)
+                        ->modalDescription(fn ($record) => 'Location: '.$record->location.', Date: '.$record->date)
+                        ->modalContent(fn ($record) => view('filament.agenda.documentation', ['notulensi' => $record->notulensi]))
                         ->modalFooterActions([
                             Action::make('close.modal')
                                 ->label('Close')

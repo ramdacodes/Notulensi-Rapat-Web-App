@@ -3,13 +3,15 @@
 namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\PresenceResource\Pages;
-use App\Filament\Admin\Resources\PresenceResource\Widgets\FilterPresenceByAgenda;
 use App\Models\Presence;
 use Carbon\Carbon;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class PresenceResource extends Resource
 {
@@ -30,6 +32,16 @@ class PresenceResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                ExportAction::make()
+                    ->label('Export to Excel')
+                    ->visible(fn (): bool => $table->getRecords()->count() > 0)
+                    ->exports([
+                        ExcelExport::make('table')->fromTable()
+                            ->askForFilename()
+                            ->askForWriterType(),
+                    ]),
+            ])
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
@@ -55,6 +67,13 @@ class PresenceResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+                ExportBulkAction::make()
+                    ->label('Export selected to Excel')
+                    ->exports([
+                        ExcelExport::make('table')->fromTable()
+                            ->askForFilename()
+                            ->askForWriterType(),
+                    ]),
             ])
             ->emptyStateHeading('Empty data')
             ->emptyStateDescription('No data found');

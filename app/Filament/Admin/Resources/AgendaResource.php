@@ -3,8 +3,8 @@
 namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\AgendaResource\Pages;
-use App\Models\Agenda;
 use App\MeetingStatus;
+use App\Models\Agenda;
 use Carbon\Carbon;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
@@ -23,6 +23,9 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\HtmlString;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class AgendaResource extends Resource
 {
@@ -59,9 +62,9 @@ class AgendaResource extends Resource
                                 ->default(now())
                                 ->required(),
                             TagsInput::make('participants')
-                                ->placeholder(fn (string $context): string|null => $context === 'view' ? null : 'Please enter participants')
+                                ->placeholder(fn (string $context): ?string => $context === 'view' ? null : 'Please enter participants')
                                 ->reorderable()
-                                ->helperText(fn (string $context): string|null => $context === 'view' ? null : 'Please use enter to separate participants')
+                                ->helperText(fn (string $context): ?string => $context === 'view' ? null : 'Please use enter to separate participants')
                                 ->required(),
                             TextInput::make('inviter_name')
                                 ->placeholder('Please enter inviter name')
@@ -95,8 +98,8 @@ class AgendaResource extends Resource
                                         ->native(false)
                                         ->required(),
                                     TagsInput::make('pics')
-                                        ->placeholder(fn (string $context): string|null => $context === 'view' ? null : 'Please enter pics')
-                                        ->helperText(fn (string $context): string|null => $context === 'view' ? null : 'Please use enter to separate pics')
+                                        ->placeholder(fn (string $context): ?string => $context === 'view' ? null : 'Please enter pics')
+                                        ->helperText(fn (string $context): ?string => $context === 'view' ? null : 'Please use enter to separate pics')
                                         ->reorderable()
                                         ->required(),
                                 ])
@@ -113,6 +116,16 @@ class AgendaResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                ExportAction::make()
+                    ->label('Export to Excel')
+                    ->visible(fn (): bool => $table->getRecords()->count() > 0)
+                    ->exports([
+                        ExcelExport::make('table')->fromTable()
+                            ->askForFilename()
+                            ->askForWriterType(),
+                    ]),
+            ])
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
@@ -143,8 +156,8 @@ class AgendaResource extends Resource
                     Tables\Actions\Action::make('view_agenda_conclusion')
                         ->label('View Conclusion')
                         ->icon('heroicon-s-eye')
-                        ->modalHeading(fn ($record) => 'Conclusion of ' . $record->name)
-                        ->modalDescription(fn ($record) => 'Location: ' . $record->location . ', Date: ' . $record->date)
+                        ->modalHeading(fn ($record) => 'Conclusion of '.$record->name)
+                        ->modalDescription(fn ($record) => 'Location: '.$record->location.', Date: '.$record->date)
                         ->modalContent(fn ($record) => new HtmlString($record->notulensi?->conclusion ?? 'No conclusion available'))
                         ->modalFooterActions([
                             Action::make('close.modal')
@@ -155,8 +168,9 @@ class AgendaResource extends Resource
                     Tables\Actions\Action::make('view_documentation')
                         ->label('View Documentation')
                         ->icon('heroicon-s-photo')
-                        ->modalHeading(fn ($record) => 'Documentation of ' . $record->name)
-                        ->modalDescription(fn ($record) => 'Location: ' . $record->location . ', Date: ' . $record->date)
+                        ->modalHeading(fn ($record) => 'Documentation of '.$record->name)
+                        ->modalDescription(fn ($record) => 'Location: '.$record->location.', Date: '.$record->date)
+                        ->modalContent(fn ($record) => view('filament.agenda.documentation', ['notulensi' => $record->notulensi]))
                         ->modalFooterActions([
                             Action::make('close.modal')
                                 ->label('Close')
@@ -164,10 +178,10 @@ class AgendaResource extends Resource
                         ])
                         ->disabled(fn ($record) => empty($record->notulensi?->conclusion)),
                     Tables\Actions\EditAction::make(),
-                    Tables\Actions\Action::make('generate_agenda_pdf')
-                        ->label('Generate PDF')
+                    Tables\Actions\Action::make('download_pdf')
+                        ->label('Download PDF')
                         ->icon('heroicon-o-arrow-down-tray')
-                        ->url(fn ($record) => route('generate.pdf', ['id' => encrypt($record->agenda_id)]), true),
+                        ->url(fn ($record) => route('download.pdf', ['id' => encrypt($record->agenda_id)]), true),
                     Tables\Actions\DeleteAction::make()
                         ->successNotification(
                             Notification::make()
@@ -182,7 +196,7 @@ class AgendaResource extends Resource
                                 ->body('Failed to delete agenda'),
                         ),
                 ])
-                ->tooltip('Actions'),
+                    ->tooltip('Actions'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -200,6 +214,14 @@ class AgendaResource extends Resource
                                 ->body('Failed to delete agenda'),
                         ),
                 ]),
+                ExportBulkAction::make()
+                    ->label('Export selected to Excel')
+                    ->exports([
+                        ExcelExport::make('table')->fromTable()
+                            ->askForFilename()
+                            ->askForWriterType(),
+                    ]),
+
             ])
             ->emptyStateHeading('Empty data')
             ->emptyStateDescription('No data found');
