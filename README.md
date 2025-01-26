@@ -26,7 +26,7 @@ Pastikan sistem Anda memiliki:
 1. **PHP** >= 8.1
 2. **Composer** >= 2.x
 3. **Laravel** >= 10.x
-4. **Database** (MySQL, PostgreSQL, dll.)
+4. **Database** MySQL
 5. **Node.js** >= 16.x dan **npm/yarn**
 6. Server lokal seperti **XAMPP** atau **Laravel Sail**
 
@@ -37,8 +37,8 @@ Pastikan sistem Anda memiliki:
 1. **Clone Repository**
 
     ```bash
-    git clone git@github.com:ramdacodes/Notulensi-Rapat-Web-App.git
-    cd Notulensi-Rapat-Web-App
+    git clone git@github.com:ramdacodes/notulensi-rapat-web-app.git
+    cd notulensi-rapat-web-app
     ```
 
 2. **Install Dependensi**
@@ -165,7 +165,7 @@ Ensure your system has:
 1. **PHP** >= 8.1
 2. **Composer** >= 2.x
 3. **Laravel** >= 10.x
-4. **Database** (MySQL, PostgreSQL, etc.)
+4. **Database** MySQL
 5. **Node.js** >= 16.x and **npm/yarn**
 6. A local server such as **XAMPP** or **Laravel Sail**
 
@@ -176,8 +176,8 @@ Ensure your system has:
 1. **Clone the Repository**
 
     ```bash
-    git clone git@github.com:ramdacodes/Notulensi-Rapat-Web-App.git
-    cd Notulensi-Rapat-Web-App
+    git clone git@github.com:ramdacodes/notulensi-rapat-web-app.git
+    cd notulensi-rapat-web-app
     ```
 
 2. **Install Dependencies**
