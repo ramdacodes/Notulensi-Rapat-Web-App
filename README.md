@@ -1,3 +1,5 @@
+<img src="https://github.com/ramdacodes/notulensi-rapat-web-app/blob/assets/notulensi-rapat.png?raw=true">
+
 # Indonesia
 
 ---
